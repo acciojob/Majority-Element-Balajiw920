@@ -1,13 +1,32 @@
-function majorityElement(nums) {
-  let count = 0;
-  let candidate = null;
+//your code here
+function majorityElement(arr) {
+  let count = 1;
+  let majority = arr[0];
 
-  for (let num of nums) {
-    if (count === 0) {
-      candidate = num;
+  for (let i = 1; i < arr.length; i++) {
+    if (arr[i] === majority) {
+      count++;
+    } else {
+      count--;
+      if (count === 0) {
+        majority = arr[i];
+        count = 1;
+      }
     }
-    count += (num === candidate) ? 1 : -1;
   }
 
-  return candidate;
+  // Count the occurrences of majority element
+  count = 0;
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] === majority) {
+      count++;
+    }
+  }
+
+  // Check if majority element appears more than floor(n/2) times
+  if (count > Math.floor(arr.length / 2)) {
+    return majority;
+  } else {
+    return -1;
+  }
 }
